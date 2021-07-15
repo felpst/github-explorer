@@ -7,13 +7,13 @@ const isDevelopment = process.env.NODE_ENV !== 'productions'; // Environment var
 module.exports = {
     mode: isDevelopment ? 'development' : 'production', // Making sure I am using the correct mode based on the mode I am running the project.
     devtool: isDevelopment ? 'eval-source-map' : 'source-map', // This will allow me to check the original code when there is an error.
-    entry: path.resolve(__dirname, 'src', 'index.jsx'), //This indicates what is the main file of the project
+    entry: path.resolve(__dirname, 'src', 'index.tsx'), //This indicates what is the main file of the project
     output: { // This is the file I am going to generate with weebpack
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
     resolve: {
-        extensions: ['.js', '.jsx'], // All this formats must work for my application
+        extensions: ['.js', '.jsx', '.ts', '.tsx'], // All this formats must work for my application
     },
     devServer: { // This will automatically run the webpack when tehre is an update
         contentBase: path.resolve(__dirname, 'public'),
@@ -28,7 +28,7 @@ module.exports = {
     module: { // This is to define how I want to deal with each file that I am importing
         rules: [
             {
-                test: /\.jsx$/, // This is a regular expression that gets all the files that end with .jsx
+                test: /\.(j|t)sx$/, // This is a regular expression that gets all the files that end with .jsx. The (j|t) basically indicates that it could be a t or a j.
                 exclude: /node_modules/, // I don't want that the .jsx files that import get converte
                 use: {
                     loader: "babel-loader",
